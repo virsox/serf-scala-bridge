@@ -29,18 +29,18 @@ integrate with your application).
 ## Running
 The first thing you need to run the bridge is to create the actor implementations, which
 will process the Serf messages, and to create a class to start the Web Server. Note the
-[`WebServer`](bridge-server/src/main/scala/br/com/virsox/serfbridge/server/WebServer)
+[`WebServer`](bridge-server/src/main/scala/br/com/virsox/serfbridge/server/WebServer.scala)
 object in the [`bridge-server`](bridge-server) component only provides the route definition,
 as defined by [akka-http](http://doc.akka.io/docs/akka-http/current/scala.html). An HTTP
 object must be created and associated with the route to effectively start
 the server. The class
-[`QuorumWebServer`](bridge-sample/src/main/scala/br/com/virsox/serfbridge/sample/QuorumWebServer)
+[`QuorumWebServer`](bridge-sample/src/main/scala/br/com/virsox/serfbridge/sample/QuorumWebServer.scala)
 in project [`bridge-sample`](bridge-sample) shows how this can be done.
 
 Both the handler script and the web server have been designed to run on the same node
-as the Serf agent. A package containing all libraries needed to run the server
-can be created using the sbt task `universal:packageZipTarball`. The resulting `.tar.gz`
-file must be copied to the server and unzipped.
+as the Serf agent. A package containing all libraries can be created using the sbt
+task `universal:packageZipTarball`. The resulting `.tar.gz` file must be copied to the
+server and unzipped.
 
 Based on the `bridge-sample` example, the following command is used to start the server:
 
@@ -49,7 +49,8 @@ node1:~$ NODE_DC=dc1 NODE_NAME=node1 ./bridge-sample
 ```
 
 The two environment variables `NODE_DC` and `NODE_NAME` are used by the sample project to
-define the nodes datacenter and name, but this is up to the implementation.
+define the nodes datacenter and name, but it is up to the implementation to choose another
+way to configure this information.
 
 Once this is done, the serf agent can be initialized:
 
